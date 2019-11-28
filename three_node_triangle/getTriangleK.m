@@ -11,10 +11,11 @@
 % XiaoCY 2019-11-28
 
 %% main
-function K = getTriangleK(node,elem,E,mu,t,type)
+function [K,A] = getTriangleK(node,elem,E,mu,t,type)
     [Nnode,~] = size(node);
     [Nelem,~] = size(elem);
     K = zeros(2*Nnode);
+    A = zeros(Nelem);
     
     switch type
         case 1
@@ -44,8 +45,9 @@ function K = getTriangleK(node,elem,E,mu,t,type)
 %         a1 = x2*y3-x3*y2;
 %         a2 = x3*y1-x1*y3;
 %         a3 = x1*y2-x2*y1;
-        A = det([1 x1 y1; 1 x2 y2; 1 x3 y3])/2;
-        A = abs(A);
+        An = det([1 x1 y1; 1 x2 y2; 1 x3 y3])/2;
+        An = abs(An);
+        A(n) = An;
         
         b1 = y2-y3;
         b2 = y3-y1;
@@ -55,9 +57,9 @@ function K = getTriangleK(node,elem,E,mu,t,type)
         c3 = x2-x1;
         
         B = [ b1  0 b2  0 b3  0
-               0 c1  0 c2  0 c3
-              c1 b1 c2 b2 c3 b3]/A/2;
-        Ke = B'*D*B*t*A;
+            0 c1  0 c2  0 c3
+            c1 b1 c2 b2 c3 b3]/An/2;
+        Ke = B'*D*B*t*An;
         
         Index = zeros(1,6);
         Index([1 3 5]) = elem(n,:)*2-1;
