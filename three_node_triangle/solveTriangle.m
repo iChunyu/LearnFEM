@@ -3,6 +3,8 @@
 %     F   --- force vector on nodes
 %    cons --- displacement constraint, constains [dof,u]
 
+% XiaoCY 2019-11-28
+
 %% main
 function d = solveTriangle(K,F,cons)
     for n = 1:length(cons(:,1))
