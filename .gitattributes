@@ -1,3 +1,4 @@
 *.mlx -crlf -diff -merge
 *.mat -crlf -diff -merge
 *.vsdx -crlf -diff -merge
+*.pdf -crlf -diff -merge
